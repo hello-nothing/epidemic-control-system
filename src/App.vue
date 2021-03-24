@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view />
+    <side-bar v-if="$route.name !== 'login'">
+      <router-view />
+    </side-bar>
+    <router-view v-else />
   </div>
 </template>
 
@@ -13,11 +16,12 @@ import {
   apiPut
 } from "./api/index";
 import router from "./router";
+import sideBar from "@/components/sideBar";
 
 export default {
   name: "App",
   components: {
-    
+    sideBar
   },
   created() {
     if (sessionStorage.getItem("store")) {

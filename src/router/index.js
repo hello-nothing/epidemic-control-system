@@ -3,6 +3,13 @@ import Router from "vue-router";
 import Error from "@/components/error";
 import Login from "@/views/login";
 import Index from "@/views/index";
+import Announcement from "@/views/announcement";
+import  AnnouncementDetail from "@/views/announcement-detail";
+import EpidemicData from "@/views/epidemic-data";
+import LeaveMessage from "@/views/leave-message";
+import ReviewList from "@/views/review-list";
+import Setting from "@/views/setting";
+import TemperatureReport from "@/views/temperature-report";
 Vue.use(Router);
 
 const router = new Router({
@@ -23,6 +30,66 @@ const router = new Router({
       meta: {
         noNeedLogin: true,
         title: "登录"
+      }
+    },
+    {
+      path: "/announcement",
+      name: "announcement",
+      component: Announcement,
+      meta: {
+        title: "疫情公告"
+      }
+    },
+    {
+      path: "/announcementDetail",
+      name: "announcementDetail",
+      component: AnnouncementDetail,
+      meta: {
+        title: "公告详情"
+      }
+    },
+    {
+      path: "/epidemicData",
+      name: "epidemicData",
+      component: EpidemicData,
+      meta: {
+        title: "疫情数据"
+      }
+    },
+    {
+      path: "/leaveMessage",
+      name: "leaveMessage",
+      component: LeaveMessage,
+      meta: {
+        noNeedLogin: true,
+        title: "留言板"
+      }
+    },
+    {
+      path: "/reviewList",
+      name: "reviewList",
+      component: ReviewList,
+      meta: {
+        noNeedLogin: true,
+        title: "审核列表"
+      }
+    },
+    {
+      path: "/temperatureReport",
+      name: "temperatureReport",
+      component: TemperatureReport,
+      meta: {
+        noNeedLogin: true,
+        title: "体温看板"
+      }
+    },
+    {
+      path: "/setting",
+      name: "setting",
+      component: Setting,
+      meta: {
+        noNeedLogin: true,
+        title: "设置"
       }
     },
     {

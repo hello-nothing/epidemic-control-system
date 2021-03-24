@@ -53,8 +53,22 @@ export default {
   mounted() {},
   methods: {
     login() {
-      window.localStorage.setItem("isLogin", true);
-      this.$router.replace({ path: "/" });
+      if (!this.account) {
+        this.message.warning("请输入账号！");
+      } else if (!this.password) {
+        this.message.warning("请输入密码！");
+      } else {
+        const params = {
+          userName: this.account,
+          passWord: this.password
+        };
+        window.localStorage.setItem("isLogin", true);
+        this.$router.replace({ path: "/" });
+        // api.login(params).then(res=> {
+        //   console.log(res);
+        //   const result = res;
+        // })
+      }
     }
   }
 };
