@@ -8,7 +8,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import store from "./store/store.js";
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
-
+import G2 from '@antv/g2';
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
