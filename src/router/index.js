@@ -81,7 +81,7 @@ const router = new Router({
       component: ReviewList,
       meta: {
         noNeedLogin: true,
-        title: "审核列表"
+        title: "用户管理"
       }
     },
     {

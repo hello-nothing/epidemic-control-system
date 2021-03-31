@@ -107,7 +107,7 @@ export default {
           url: "/leaveMessage"
         },
         {
-          name: "审核列表",
+          name: "用户管理",
           id: "7",
           url: "/reviewList"
         },
