@@ -15,7 +15,7 @@
         校园疫情防控信息管理系统
       </div>
       <div class="right-box">
-        <div class="user-box" v-if="userName">欢迎你，{{ userName }}</div>
+        <div class="user-box" v-if="userName">欢迎你，{{ userInfo.userName }}</div>
         <div class="no-login" v-else>未登录</div>
         <i class="el-icon-switch-button setting-img" @click="exit"></i>
       </div>
@@ -92,6 +92,11 @@ export default {
           url: "/temperatureReport"
         },
         {
+          name: "体温列表",
+          id: "4",
+          url: "/temperatureList"
+        },
+        {
           name: "查看留言",
           id: "4",
           url: "/leaveMessage"
@@ -111,10 +116,22 @@ export default {
         //   id: "7",
         //   url: "/userManage"
         // }
-      ]
+      ],
+      userInfo: {
+        userId: "",
+        type: "学生",
+        userName:""
+      }
     };
   },
   created() {},
+  mounted() {
+    const info = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(info);
+    if (info.userName) {
+      this.userInfo = info;
+    }
+  },
   methods: {
     ...mapMutations(["getUserName"]),
     // 退出登录
@@ -135,6 +152,14 @@ export default {
     },
     // 侧边栏选择
     selectNav(item, index) {
+      if (this.userInfo.type === "学生" && item.url === "/temperatureList") {
+        this.$message.warning("权限不足！");
+        return;
+      }
+      if (this.userInfo.type === "教师" && item.url === "/temperatureReport") {
+        this.$message.warning("权限不足！");
+        return;
+      }
       this.$router.push(item.url);
     }
   }

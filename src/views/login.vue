@@ -63,6 +63,12 @@ export default {
           passWord: this.password
         };
         window.localStorage.setItem("isLogin", true);
+        const userInfo = {
+          userName: "葳蕤",
+          userId: "222",
+          type: "学生",
+        };
+        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
         this.$router.replace({ path: "/" });
         // api.login(params).then(res=> {
         //   console.log(res);

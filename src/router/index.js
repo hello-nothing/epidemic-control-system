@@ -4,7 +4,7 @@ import Error from "@/components/error";
 import Login from "@/views/login";
 import Index from "@/views/index";
 import Announcement from "@/views/announcement";
-import  AnnouncementDetail from "@/views/announcement-detail";
+import  TemperatureList from "@/views/temperature-list";
 import EpidemicData from "@/views/epidemic-data";
 import LeaveMessage from "@/views/leave-message";
 import ReviewList from "@/views/review-list";
@@ -41,11 +41,11 @@ const router = new Router({
       }
     },
     {
-      path: "/announcementDetail",
-      name: "announcementDetail",
-      component: AnnouncementDetail,
+      path: "/temperatureList",
+      name: "temperatureList",
+      component: TemperatureList,
       meta: {
-        title: "公告详情"
+        title: "体温列表"
       }
     },
     {
