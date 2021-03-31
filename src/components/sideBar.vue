@@ -87,28 +87,33 @@ export default {
           url: "/epidemicData"
         },
         {
-          name: "上报体温",
+          name: "防疫小知识",
           id: "3",
+          url: "/tips"
+        },
+        {
+          name: "上报体温",
+          id: "4",
           url: "/temperatureReport"
         },
         {
           name: "体温列表",
-          id: "4",
+          id: "5",
           url: "/temperatureList"
         },
         {
           name: "查看留言",
-          id: "4",
+          id: "6",
           url: "/leaveMessage"
         },
         {
           name: "审核列表",
-          id: "4",
+          id: "7",
           url: "/reviewList"
         },
         {
           name: "设置",
-          id: "5",
+          id: "8",
           url: "/setting"
         }
         // {

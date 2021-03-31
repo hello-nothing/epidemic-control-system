@@ -10,6 +10,8 @@ import LeaveMessage from "@/views/leave-message";
 import ReviewList from "@/views/review-list";
 import Setting from "@/views/setting";
 import TemperatureReport from "@/views/temperature-report";
+import Tips from "@/views/tips";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -38,6 +40,14 @@ const router = new Router({
       component: Announcement,
       meta: {
         title: "疫情公告"
+      }
+    },
+    {
+      path: "/tips",
+      name: "tips",
+      component: Tips,
+      meta: {
+        title: "防疫小知识"
       }
     },
     {
