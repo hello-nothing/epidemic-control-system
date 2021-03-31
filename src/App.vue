@@ -64,4 +64,13 @@ body {
 p {
   margin: 0;
 }
+.wrapper {
+  padding: 32px;
+}
+.page-title {
+  padding-bottom: 30px;
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+}
 </style>
