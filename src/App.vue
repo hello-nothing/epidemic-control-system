@@ -67,10 +67,17 @@ p {
 .wrapper {
   padding: 32px;
 }
+.page-container {
+  width: 100%;
+}
 .page-title {
   padding-bottom: 30px;
   font-size: 20px;
   color: #000;
   font-weight: bold;
+}
+.button-style,
+.delete-text {
+  margin-bottom: 30px;
 }
 </style>
