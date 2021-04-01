@@ -8,6 +8,7 @@ import  TemperatureList from "@/views/temperature-list";
 import EpidemicData from "@/views/epidemic-data";
 import LeaveMessage from "@/views/leave-message";
 import ReviewList from "@/views/review-list";
+import GlassList from "@/views/glass-list";
 import Setting from "@/views/setting";
 import TemperatureReport from "@/views/temperature-report";
 import Tips from "@/views/tips";
@@ -73,6 +74,15 @@ const router = new Router({
       meta: {
         noNeedLogin: true,
         title: "留言板"
+      }
+    },
+    {
+      path: "/glassList",
+      name: "glassList",
+      component: GlassList,
+      meta: {
+        noNeedLogin: true,
+        title: "班级管理"
       }
     },
     {

@@ -107,13 +107,18 @@ export default {
           url: "/leaveMessage"
         },
         {
-          name: "用户管理",
+          name: "班级管理",
           id: "7",
+          url: "/glassList"
+        },
+        {
+          name: "用户管理",
+          id: "8",
           url: "/reviewList"
         },
         {
           name: "设置",
-          id: "8",
+          id: "9",
           url: "/setting"
         }
         // {
