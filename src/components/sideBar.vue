@@ -15,7 +15,7 @@
         校园疫情防控信息管理系统
       </div>
       <div class="right-box">
-        <div class="user-box" v-if="userName">欢迎你，{{ userInfo.userName }}</div>
+        <div class="user-box" v-if="userInfo.userName">欢迎你，{{ userInfo.userName }}</div>
         <div class="no-login" v-else>未登录</div>
         <i class="el-icon-switch-button setting-img" @click="exit"></i>
       </div>
@@ -122,11 +122,7 @@ export default {
         //   url: "/userManage"
         // }
       ],
-      userInfo: {
-        userId: "",
-        type: "学生",
-        userName:""
-      }
+      userInfo: {}
     };
   },
   created() {},

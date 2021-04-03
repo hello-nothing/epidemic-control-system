@@ -2,7 +2,7 @@
   <div class="review-container wrapper">
     <div class="page-title">用户管理</div>
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="uerName" label="用户昵称" width="100">
+      <el-table-column prop="userName" label="用户昵称" width="100">
       </el-table-column>
       <el-table-column prop="telephone" label="telephone" width="180">
       </el-table-column>
@@ -108,6 +108,7 @@
   </div>
 </template>
 <script>
+import api from "../api/api";
 export default {
   name: "reviewList",
   data() {
@@ -119,45 +120,45 @@ export default {
           birthday: "2020-10-10 02:23:23",
           gender: "男",
           type: "学生",
-          className: "计算机"
-        }
+          className: "计算机",
+        },
       ],
       checkVisible: false,
       checkList: [
         {
           status: 1,
-          name: "审核不通过"
+          name: "审核不通过",
         },
         {
           status: 2,
-          name: "审核通过"
-        }
+          name: "审核通过",
+        },
       ],
       checkId: 2,
       userInfo: {},
       sexList: [
         {
           name: "男",
-          id: 1
+          id: 1,
         },
         {
           name: "女",
-          id: 2
-        }
+          id: 2,
+        },
       ],
       typeList: [
         {
           name: "学生",
-          id: 1
+          id: 1,
         },
         {
           name: "教师",
-          id: 2
+          id: 2,
         },
         {
           name: "管理员",
-          id: 3
-        }
+          id: 3,
+        },
       ],
       editInfo: {
         uerName: "",
@@ -165,9 +166,10 @@ export default {
         birthday: "",
         gender: "",
         type: "",
-        className: ""
+        className: "",
       },
-      editVisible: false
+      editVisible: false,
+      currentPage: 1,
     };
   },
   mounted() {
@@ -175,9 +177,28 @@ export default {
     console.log(info);
     if (info.userName) {
       this.userInfo = info;
+      this.getUserList();
     }
   },
   methods: {
+    // 获取用户列表
+    getUserList() {
+      const params = {
+        pageSize: 20,
+        currentPage: this.currentPage,
+        telephone: this.userInfo.telephone,
+        userName: this.userInfo.userName,
+      };
+      api.getUserList(params).then((res) => {
+        console.log(res);
+        const result = res.data;
+        if (result.status === 200) {
+          this.tableData = result.data.list;
+        } else {
+          this.$message.wraning("获取数据失败！");
+        }
+      });
+    },
     // 审核
     check() {
       this.checkVisible = true;
@@ -186,16 +207,17 @@ export default {
     confirmCheck() {
       const param = {
         userId: this.userInfo.userId,
-        status: this.checkId
+        status: this.checkId,
       };
+      
     },
     // 编辑
     edit(item) {
       console.log(item);
       this.editInfo = item;
       this.editVisible = true;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

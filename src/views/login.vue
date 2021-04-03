@@ -32,10 +32,29 @@
         <div class="login-text" @click="login">登录</div>
       </div>
       <div class="last-module">
-        <div class="remember-text">注册</div>
+        <div class="remember-text" @click="regist">注册</div>
         <div class="forger-text">忘记密码?</div>
       </div>
     </div>
+    <el-dialog title="用户注册" :visible.sync="addVisible">
+      <div class="list-box">
+        <div class="list-title">用户名：</div>
+        <el-input v-model="info.userName" placeholder="请输入用户名"></el-input>
+      </div>
+      <div class="list-box">
+        <div class="list-title">密码：</div>
+        <el-input v-model="info.password" placeholder="请输入密码"></el-input>
+      </div>
+      <div class="list-box">
+        <div class="list-title">用户类型：</div>
+        <el-select v-model="info.type">
+          <el-option label="学生" value="3"></el-option>
+          <el-option label="老师 " value="1"></el-option>
+          <!-- <el-option label="管理员" value="2"></el-option> -->
+        </el-select>
+      </div>
+      <el-button @click="confirmAdd" type="primary">确定</el-button>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -47,11 +66,43 @@ export default {
       img: backgroundImg,
       password: "",
       account: "",
+      info: {
+        userName: "",
+        password: "",
+        type: "1",
+      },
+      addVisible: false,
     };
   },
 
   mounted() {},
   methods: {
+    // 注册
+    regist() {
+      this.addVisible = true;
+    },
+    // 确认注册
+    confirmAdd() {
+      if (!this.info.userName) {
+        this.$message.warning("请输入用户名!");
+      } else if (!this.info.password) {
+        this.$message.warning("请输入密码!");
+      } else if (!this.info.type) {
+        this.$message.warning("请选择用户类型!");
+      } else {
+        api.regist(this.info).then((res) => {
+          console.log(res);
+          const result = res.data;
+          if (result.status === 200) {
+            this.$message.success("注册成功！");
+            this.addVisible = false;
+          } else {
+            this.$message.warning(result.message);
+          }
+        });
+      }
+    },
+    // 登录
     login() {
       if (!this.account) {
         this.message.warning("请输入账号！");
@@ -279,6 +330,15 @@ export default {
     &:hover {
       color: #008fe2;
     }
+  }
+}
+.list-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  .list-title {
+    width: 80px;
+    text-align: right;
   }
 }
 </style>
