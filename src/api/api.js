@@ -200,9 +200,11 @@ export default {
   },
   // 删除班级
   deleteGlass: opts => {
-    return apiResource({
+    return apiCollection({
       url: "/class/deleteClass/v1",
-      data: opts
+      params: {
+        ...opts
+      }
     });
   },
 };

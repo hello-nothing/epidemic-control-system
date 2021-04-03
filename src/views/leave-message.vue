@@ -50,6 +50,7 @@
       </div>
     </div>
     <el-pagination
+      class="page-box"
       background
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
@@ -84,6 +85,7 @@
         </div>
       </div>
       <el-pagination
+        class="page-box"
         background
         @current-change="replyCurrentChange"
         layout="prev, pager, next"

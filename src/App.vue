@@ -79,4 +79,7 @@ p {
 .select-style {
   margin-bottom: 30px;
 }
+.page-box {
+  margin: 20px 0;
+}
 </style>

@@ -9,7 +9,7 @@
       >新增班级</el-button
     >
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="className" label="班级名称" width="100">
+      <el-table-column prop="className" label="班级名称" width="200">
       </el-table-column>
       <el-table-column prop="action" label="操作" width="200">
         <template slot-scope="scope">
@@ -23,7 +23,6 @@
       <div class="list-box">
         <div class="list-title">班级名称：</div>
         <el-input
-          class="select-style"
           v-model="className"
           placeholder="请输入班级名称"
         ></el-input>
@@ -38,6 +37,7 @@
   </div>
 </template>
 <script>
+import api from "../api/api";
 export default {
   name: "glassList",
   data() {
@@ -49,12 +49,13 @@ export default {
           birthday: "2020-10-10 02:23:23",
           gender: "男",
           type: "学生",
-          className: "计算机"
-        }
+          className: "计算机",
+        },
       ],
       className: "",
       addVisible: false,
-      deleteVisible: false
+      deleteVisible: false,
+      deleteId: "",
     };
   },
   mounted() {
@@ -62,29 +63,69 @@ export default {
     console.log(info);
     if (info.userName) {
       this.userInfo = info;
+      this.getGlassList();
     }
   },
   methods: {
+    // 获取班级列表
+    getGlassList() {
+      api.getGlassList().then((res) => {
+        console.log(res);
+        const result = res.data;
+        if (result.status === 200) {
+          this.tableData = result.data.list;
+        } else {
+          this.$message.wraning("获取数据失败！");
+        }
+      });
+    },
     // 新增班级
     newAddGlass() {
       this.addVisible = true;
     },
     // 确认新增
     confirmAdd() {
-      if (!this.messageDesc) {
+      if (!this.className) {
         this.$message.warning("请输入班级名称！");
         return;
       }
+      const params = {
+        className: this.className,
+        userId: this.userInfo.userId,
+      };
+      api.addGlass(params).then((res) => {
+        console.log(res);
+        const result = res.data;
+        if (result.status === 200) {
+          this.$message.success("新增成功！");
+          this.getGlassList();
+          this.className = "";
+          this.addVisible = false;
+        } else {
+          this.$message.wraning(result.message);
+        }
+      });
     },
     // 删除班级
     deleteGlass(item) {
       this.deleteVisible = true;
+      this.deleteId = item.classId;
     },
     // 确认删除
     confirmDelete() {
-      this.deleteVisible = false;
-    }
-  }
+      api.deleteGlass({ classId: this.deleteId }).then((res) => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.$message.success("删除成功！");
+          this.deleteVisible = false;
+          this.className = "";
+          this.getGlassList();
+        } else {
+          this.$message.wraning("删除失败！");
+        }
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
