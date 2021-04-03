@@ -102,23 +102,18 @@ export default {
           url: "/temperatureList"
         },
         {
-          name: "查看留言",
-          id: "6",
-          url: "/leaveMessage"
-        },
-        {
           name: "班级管理",
-          id: "7",
+          id: "6",
           url: "/glassList"
         },
         {
           name: "用户管理",
-          id: "8",
+          id: "7",
           url: "/reviewList"
         },
         {
           name: "设置",
-          id: "9",
+          id: "8",
           url: "/setting"
         }
         // {

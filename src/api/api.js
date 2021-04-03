@@ -116,9 +116,11 @@ export default {
   },
   // 删除留言
   deleteMessage: opts => {
-    return apiResource({
+    return apiCollection({
       url: "/inquire/deleteInquire/v1",
-      data: opts
+      params: {
+        ...opts
+      }
     });
   },
   // 编辑用户
@@ -156,7 +158,7 @@ export default {
   // 回复留言
   saveReplay: opts => {
     return apiResource({
-      url: "/replay/saveReplay/v1",
+      url: "/reply/saveReply/v1",
       data: opts
     });
   },
@@ -172,7 +174,7 @@ export default {
   // 获取回复列表
   getReplyList: opts => {
     return apiCollection({
-      url: "/replay/replayList/v1",
+      url: "/reply/replyList/v1",
       params: {
         ...opts
       }
