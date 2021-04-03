@@ -10,11 +10,11 @@ module.exports = {
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
     proxyTable: {
-      "/back": {
-        target: "http://38670m585s.zicp.vip/back",
+      "/api": {
+        target: "http://38670m585s.zicp.vip",
         changeOrigin: true,
         pathRewrite: {
-          "^/back": ""
+          "^/api": ""
         }
       }
     },

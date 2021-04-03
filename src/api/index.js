@@ -5,14 +5,8 @@ import router from "../router";
 axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
 
-let baseurl = process.env.NODE_ENV === "production" ? "" : "";
-let imageUrl =
-  process.env.NODE_ENV === "production"
-    ? "http://192.168.0.189:9010"
-    : "http://192.168.0.189:9010";
+let baseurl = process.env.NODE_ENV === "production" ? "" : "http://38670m585s.zicp.vip";
 
-export let imgUrl = imageUrl;
-export const upload_url = "http://192.168.0.189:9010/public/upload";
 export let apiCollection = Vue.axios.create({
   method: "GET",
   baseURL: baseurl

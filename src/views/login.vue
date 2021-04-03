@@ -4,7 +4,7 @@
       <div class="title-text">校园疫情防控信息管理系统</div>
       <div
         class="title-image"
-        style="background-image: url(assets/mobileTitle.png);"
+        style="background-image: url(assets/mobileTitle.png)"
       ></div>
     </div>
     <div class="login-module">
@@ -46,7 +46,7 @@ export default {
     return {
       img: backgroundImg,
       password: "",
-      account: ""
+      account: "",
     };
   },
 
@@ -60,23 +60,26 @@ export default {
       } else {
         const params = {
           userName: this.account,
-          passWord: this.password
+          password: this.password,
         };
-        window.localStorage.setItem("isLogin", true);
-        const userInfo = {
-          userName: "葳蕤",
-          userId: "222",
-          type: "学生",
-        };
-        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        this.$router.replace({ path: "/" });
-        // api.login(params).then(res=> {
-        //   console.log(res);
-        //   const result = res;
-        // })
+        api.login(params).then((res) => {
+          console.log(res);
+          const result = res.data;
+          if (result.code === 200) {
+            window.localStorage.setItem("isLogin", true);
+            window.localStorage.setItem(
+              "userInfo",
+              JSON.stringify(result.data)
+            );
+            this.$message.success("登录成功！");
+            this.$router.replace({ path: "/" });
+          } else {
+            this.$message.waring(result.message);
+          }
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
