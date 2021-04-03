@@ -75,7 +75,8 @@ p {
   font-weight: bold;
 }
 .button-style,
-.delete-text {
+.delete-text,
+.select-style {
   margin-bottom: 30px;
 }
 </style>

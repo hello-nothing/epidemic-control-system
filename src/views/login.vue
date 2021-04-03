@@ -65,7 +65,7 @@ export default {
         api.login(params).then((res) => {
           console.log(res);
           const result = res.data;
-          if (result.code === 200) {
+          if (result.status === 200) {
             window.localStorage.setItem("isLogin", true);
             window.localStorage.setItem(
               "userInfo",
@@ -74,7 +74,7 @@ export default {
             this.$message.success("登录成功！");
             this.$router.replace({ path: "/" });
           } else {
-            this.$message.waring(result.message);
+            this.$message.warning(result.message);
           }
         });
       }
