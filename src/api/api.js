@@ -93,9 +93,11 @@ export default {
   },
   // 防疫小知识删除
   deleteQuestion: opts => {
-    return apiResource({
-      url: "/question/deleteQuestion/v1",
-      data: opts
+    return apiCollection({
+      url: "/question/questionDelete/v1",
+      params: {
+        ...opts
+      }
     });
   },
   // 添加留言
