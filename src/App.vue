@@ -12,8 +12,6 @@ import {
   apiCollection,
   apiResource,
   apiFormSubmit,
-  apiDelete,
-  apiPut
 } from "./api/index";
 import router from "./router";
 import sideBar from "@/components/sideBar";
@@ -37,7 +35,7 @@ export default {
       sessionStorage.setItem("store", JSON.stringify(this.$store.state));
     });
     const loginToken = localStorage.getItem("x-token");
-    const arr = [apiCollection, apiResource, apiFormSubmit, apiDelete, apiPut];
+    const arr = [apiCollection, apiResource, apiFormSubmit];
     if (loginToken) {
       arr.forEach(item => {
         item.defaults.headers["x-token"] = loginToken;

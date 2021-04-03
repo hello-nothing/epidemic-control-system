@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/back": {
-        target: "http://192.168.0.189:9010/back",
+        target: "http://38670m585s.zicp.vip/back",
         changeOrigin: true,
         pathRewrite: {
           "^/back": ""
