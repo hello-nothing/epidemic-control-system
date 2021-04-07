@@ -46,6 +46,46 @@
         <el-input v-model="info.password" placeholder="请输入密码"></el-input>
       </div>
       <div class="list-box">
+        <div class="list-title">手机号：</div>
+        <el-input
+          v-model="info.telephone"
+          placeholder="请输入手机号"
+        ></el-input>
+      </div>
+      <div class="list-box">
+        <div class="list-title">姓别：</div>
+        <el-select v-model="info.gender" placeholder="请选择性别">
+          <el-option
+            v-for="item in sexList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          >
+          </el-option>
+        </el-select>
+      </div>
+      <div class="list-box">
+        <div class="list-title">出生年月日：</div>
+        <el-date-picker
+          v-model="info.birthday"
+          type="date"
+          placeholder="请选择你的出生年月日"
+        >
+        </el-date-picker>
+      </div>
+      <div class="list-box">
+        <div class="list-title">班级选择：</div>
+        <el-select v-model="info.className" placeholder="请选择班级">
+          <el-option
+            v-for="item in glassList"
+            :key="item.className"
+            :label="item.className"
+            :value="item.className"
+          >
+          </el-option>
+        </el-select>
+      </div>
+      <div class="list-box">
         <div class="list-title">用户类型：</div>
         <el-select v-model="info.type">
           <el-option label="学生" value="3"></el-option>
@@ -69,14 +109,43 @@ export default {
       info: {
         userName: "",
         password: "",
-        type: "1",
+        type: "",
+        telephone: "",
+        gender: "",
+        birthday: "",
+        className: "",
       },
       addVisible: false,
+      sexList: [
+        {
+          name: "男",
+          id: 1,
+        },
+        {
+          name: "女",
+          id: 2,
+        },
+      ],
+      glassList: [],
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.getGlassList();
+  },
   methods: {
+    // 获取班级
+    getGlassList() {
+      api.getGlassList().then((res) => {
+        console.log(res);
+        const result = res.data;
+        if (result.status === 200) {
+          this.glassList = result.data.list;
+        } else {
+          this.$message.wraning("获取数据失败！");
+        }
+      });
+    },
     // 注册
     regist() {
       this.addVisible = true;
@@ -90,6 +159,15 @@ export default {
       } else if (!this.info.type) {
         this.$message.warning("请选择用户类型!");
       } else {
+        for (let i = 0; i <= this.glassList.length; i++) {
+          console.log(i);
+          if (this.glassList[i].className === this.info.className) {
+            console.log(this.glassList[i].className);
+            this.info.classId = this.glassList[i].classId;
+          }
+        }
+        console.log(this.info);
+
         api.regist(this.info).then((res) => {
           console.log(res);
           const result = res.data;
@@ -337,7 +415,7 @@ export default {
   align-items: center;
   margin-bottom: 20px;
   .list-title {
-    width: 80px;
+    width: 100px;
     text-align: right;
   }
 }
