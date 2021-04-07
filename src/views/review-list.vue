@@ -12,6 +12,8 @@
       <el-table-column prop="type" label="角色" width="80"> </el-table-column>
       <el-table-column prop="className" label="班级名称" width="280">
       </el-table-column>
+      <el-table-column prop="status" label="审核状态" width="280">
+      </el-table-column>
       <el-table-column prop="action" label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="check(scope.row)"
@@ -40,7 +42,7 @@
         <div class="list-title">姓名：</div>
         <el-input
           class="select-style"
-          v-model="editInfo.uerName"
+          v-model="editInfo.userName"
           placeholder="请输入您的姓名"
         ></el-input>
       </div>
@@ -103,7 +105,7 @@
           placeholder="请输入您的班级名称"
         ></el-input>
       </div>
-      <el-button @click="confirmCheck" type="primary">确定</el-button>
+      <el-button @click="confirmEdit" type="primary">确定</el-button>
     </el-dialog>
   </div>
 </template>
@@ -160,14 +162,7 @@ export default {
           id: 3,
         },
       ],
-      editInfo: {
-        uerName: "",
-        telephone: "",
-        birthday: "",
-        gender: "",
-        type: "",
-        className: "",
-      },
+      editInfo: {},
       editVisible: false,
       currentPage: 1,
     };
@@ -190,7 +185,6 @@ export default {
         userName: this.userInfo.userName,
       };
       api.getUserList(params).then((res) => {
-        console.log(res);
         const result = res.data;
         if (result.status === 200) {
           this.tableData = result.data.list;
@@ -209,7 +203,16 @@ export default {
         userId: this.userInfo.userId,
         status: this.checkId,
       };
-      
+      api.checkUser(param).then((res) => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.getUserList();
+          this.$message.success("审核成功！");
+          this.checkVisible = false;
+        } else {
+          this.$message.wraning(result.message);
+        }
+      });
     },
     // 编辑
     edit(item) {
@@ -217,6 +220,19 @@ export default {
       this.editInfo = item;
       this.editVisible = true;
     },
+    // 确定编辑
+    confirmEdit() {
+      api.editUser(this.editInfo).then(res=> {
+        const result = res.data;
+        if (result.status === 200) {
+          this.getUserList();
+          this.$message.success("编辑成功！");
+          this.editVisible = false;
+        } else {
+          this.$message.wraning(result.message);
+        }
+      })
+    }
   },
 };
 </script>
