@@ -90,7 +90,7 @@
         <el-select v-model="info.type">
           <el-option label="学生" value="3"></el-option>
           <el-option label="老师 " value="1"></el-option>
-          <!-- <el-option label="管理员" value="2"></el-option> -->
+          <el-option label="管理员" value="2"></el-option>
         </el-select>
       </div>
       <el-button @click="confirmAdd" type="primary">确定</el-button>
@@ -113,20 +113,20 @@ export default {
         telephone: "",
         gender: "",
         birthday: "",
-        className: "",
+        className: ""
       },
       addVisible: false,
       sexList: [
         {
           name: "男",
-          id: 1,
+          id: 1
         },
         {
           name: "女",
-          id: 2,
-        },
+          id: 2
+        }
       ],
-      glassList: [],
+      glassList: []
     };
   },
 
@@ -136,7 +136,7 @@ export default {
   methods: {
     // 获取班级
     getGlassList() {
-      api.getGlassList().then((res) => {
+      api.getGlassList().then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
@@ -159,16 +159,13 @@ export default {
       } else if (!this.info.type) {
         this.$message.warning("请选择用户类型!");
       } else {
-        for (let i = 0; i <= this.glassList.length; i++) {
-          console.log(i);
+        for (let i = 0; i < this.glassList.length; i++) {
           if (this.glassList[i].className === this.info.className) {
-            console.log(this.glassList[i].className);
             this.info.classId = this.glassList[i].classId;
           }
         }
         console.log(this.info);
-
-        api.regist(this.info).then((res) => {
+        api.regist(this.info).then(res => {
           console.log(res);
           const result = res.data;
           if (result.status === 200) {
@@ -189,9 +186,9 @@ export default {
       } else {
         const params = {
           userName: this.account,
-          password: this.password,
+          password: this.password
         };
-        api.login(params).then((res) => {
+        api.login(params).then(res => {
           console.log(res);
           const result = res.data;
           if (result.status === 200) {
@@ -207,8 +204,8 @@ export default {
           }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

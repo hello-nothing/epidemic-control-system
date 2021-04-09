@@ -73,47 +73,47 @@ export default {
       navList: [
         {
           name: "首页",
-          id: "0",
+          id: "1",
           url: "/"
         },
         {
           name: "疫情公告",
-          id: "1",
+          id: "2",
           url: "/announcement"
         },
         {
           name: "疫情数据",
-          id: "2",
+          id: "3",
           url: "/epidemicData"
         },
         {
           name: "防疫小知识",
-          id: "3",
+          id: "4",
           url: "/tips"
         },
         {
           name: "上报体温",
-          id: "4",
+          id: "5",
           url: "/temperatureReport"
         },
         {
           name: "体温列表",
-          id: "5",
+          id: "6",
           url: "/temperatureList"
         },
         {
           name: "班级管理",
-          id: "6",
+          id: "7",
           url: "/glassList"
         },
         {
           name: "用户管理",
-          id: "7",
+          id: "8",
           url: "/reviewList"
         },
         {
           name: "设置",
-          id: "8",
+          id: "9",
           url: "/setting"
         }
         // {

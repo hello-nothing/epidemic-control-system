@@ -1,8 +1,4 @@
-import {
-  apiCollection,
-  apiResource,
-  apiFormSubmit
-} from "./index";
+import { apiCollection, apiResource, apiFormSubmit } from "./index";
 export default {
   // 登录
   login: opts => {
@@ -207,4 +203,13 @@ export default {
       }
     });
   },
+  // 获取疫情数据
+  getEpidemicData: opts => {
+    return apiCollection({
+      url: "/user/getEpidemic/v1",
+      params: {
+        ...opts
+      }
+    });
+  }
 };

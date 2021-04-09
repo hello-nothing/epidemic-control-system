@@ -165,6 +165,7 @@ export default {
       editInfo: {},
       editVisible: false,
       currentPage: 1,
+      checkUserId:''
     };
   },
   mounted() {
@@ -194,13 +195,16 @@ export default {
       });
     },
     // 审核
-    check() {
+    check(item) {
+      console.log(item)
+      this.checkUserId = item.userId;
       this.checkVisible = true;
+
     },
     // 确认审核结果
     confirmCheck() {
       const param = {
-        userId: this.userInfo.userId,
+        userId: this.checkUserId,
         status: this.checkId,
       };
       api.checkUser(param).then((res) => {

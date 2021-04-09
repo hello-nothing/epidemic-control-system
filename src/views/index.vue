@@ -58,7 +58,13 @@ export default {
   },
 
   mounted() {},
-  methods: {}
+  methods: {
+    getEpidemicData() {
+      api.getEpidemicData().then(res=> {
+        console.log(res)
+      })
+    }
+  }
 };
 </script>
 
