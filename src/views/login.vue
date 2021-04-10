@@ -33,7 +33,7 @@
       </div>
       <div class="last-module">
         <div class="remember-text" @click="regist">注册</div>
-        <div class="forger-text">忘记密码?</div>
+        <div class="forger-text" @click="forgetPassword">忘记密码?</div>
       </div>
     </div>
     <el-dialog title="用户注册" :visible.sync="addVisible">
@@ -134,6 +134,10 @@ export default {
     this.getGlassList();
   },
   methods: {
+    // 忘记密码
+    forgetPassword() {
+      this.$message.info("请联系管理员修改密码！");
+    },
     // 获取班级
     getGlassList() {
       api.getGlassList().then(res => {

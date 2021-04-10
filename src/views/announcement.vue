@@ -1,7 +1,11 @@
 <template>
   <div class="announce-container wrapper">
     <div class="page-title">疫情公告</div>
-    <el-button type="primary" class="add-button" @click="newAdd"
+    <el-button
+      v-if="userInfo.type != 3"
+      type="primary"
+      class="add-button"
+      @click="newAdd"
       >新增公告</el-button
     >
     <el-table :data="tableData" border style="width: 100%">
@@ -16,7 +20,7 @@
           <el-button size="mini" type="primary" @click="lookDetail(scope.row)"
             >查看详情</el-button
           >
-          <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
+          <el-button  v-if="userInfo.type != 3" size="mini" type="danger" @click="handleDelete(scope.row)"
             >删除</el-button
           >
           <el-button size="mini" type="" @click="lookMessage(scope.row)"
@@ -71,12 +75,12 @@ export default {
         description: "",
         type: "",
         views: "",
-        createTime: "",
+        createTime: ""
       },
       detailVisible: false,
       addVisible: false,
       description: "",
-      userInfo: {},
+      userInfo: {}
     };
   },
   mounted() {
@@ -89,7 +93,10 @@ export default {
   methods: {
     // 查看留言
     lookMessage(item) {
-      this.$router.push({ path: "/leaveMessage", query: {id: item.noticeId }});
+      this.$router.push({
+        path: "/leaveMessage",
+        query: { id: item.noticeId }
+      });
     },
     // 新增公告
     newAdd() {
@@ -103,9 +110,9 @@ export default {
       }
       const params = {
         userId: this.userInfo.userId,
-        description: this.description,
+        description: this.description
       };
-      api.addAnnouncement(params).then((res) => {
+      api.addAnnouncement(params).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.$message.success("新增成功！");
@@ -120,9 +127,9 @@ export default {
       const params = {
         description: "",
         currentPage: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       };
-      api.getAnnounceList(params).then((res) => {
+      api.getAnnounceList(params).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.tableData = result.data.list;
@@ -134,9 +141,9 @@ export default {
     // 查看公告详情
     lookDetail(item) {
       const params = {
-        noticeId: item.noticeId,
+        noticeId: item.noticeId
       };
-      api.getAnnounceDetail(params).then((res) => {
+      api.getAnnounceDetail(params).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.detailInfo = item;
@@ -155,9 +162,9 @@ export default {
     // 确认删除
     confirmDelete() {
       const param = {
-        noticeId: this.deleteId,
+        noticeId: this.deleteId
       };
-      api.deleteAnnounce(param).then((res) => {
+      api.deleteAnnounce(param).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.$message.success("删除成功！");
@@ -167,8 +174,8 @@ export default {
           this.$message.wraning("查看失败！");
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

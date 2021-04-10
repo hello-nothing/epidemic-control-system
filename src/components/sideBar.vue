@@ -137,11 +137,12 @@ export default {
     },
     // 侧边栏选择
     selectNav(item, index) {
-      if (this.userInfo.type === "学生" && item.url === "/temperatureList") {
+      console.log(item,this.userInfo)
+      if (this.userInfo.type === "3" && item.url === "/glassList") {
         this.$message.warning("权限不足！");
         return;
       }
-      if (this.userInfo.type === "教师" && item.url === "/temperatureReport") {
+      if (this.userInfo.type === "3" && item.url === "/reviewList") {
         this.$message.warning("权限不足！");
         return;
       }

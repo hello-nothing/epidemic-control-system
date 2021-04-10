@@ -1,7 +1,7 @@
 <template>
   <div class="tips-container wrapper">
     <div class="page-title">防疫小知识</div>
-    <el-button type="primary" class="add-button" @click="newAdd"
+    <el-button v-if="userInfo.type != 3" type="primary" class="add-button" @click="newAdd"
       >新增</el-button
     >
     <el-table :data="tableData" border style="width: 100%">
@@ -15,7 +15,7 @@
           <!-- <el-button size="mini" type="primary" @click="edit(scope.row)"
             >编辑</el-button
           > -->
-          <el-button size="mini" type="danger" @click="handleDelete(scope.row)"
+          <el-button v-if="userInfo.type != 3" size="mini" type="danger" @click="handleDelete(scope.row)"
             >删除</el-button
           >
         </template>
