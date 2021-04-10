@@ -3,18 +3,19 @@
     <div class="page-title">体温列表</div>
     <el-select
       v-model="className"
-      placeholder="请选择班级"
+      placeholder="请选择学生"
       class="select-style"
+      @change="classChange"
     >
       <el-option
         v-for="item in classList"
-        :key="item.id"
-        :label="item.name"
-        :value="item.id"
+        :key="item.userId"
+        :label="item.userName"
+        :value="item.userId"
       >
       </el-option>
     </el-select>
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table :data="tableData" border style="width: 100%;margin-bottom:30px;">
       <el-table-column prop="userName" label="姓名" width="180">
       </el-table-column>
       <el-table-column prop="temperature" label="温度" width="180">
@@ -29,6 +30,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <zhe-xian chartId="warn-container" :chartData="temperatureList"></zhe-xian>
     <el-dialog title="编辑体温" :visible.sync="detailVisible" width="30%">
       <el-input
         class="select-style"
@@ -40,17 +42,17 @@
   </div>
 </template>
 <script>
+import api from "../api/api";
+import zheXian from "@/components/zheXian";
+
 export default {
   name: "temperatureList",
+  components: {
+    zheXian
+  },
   data() {
     return {
-      tableData: [
-        {
-          temperature: "37",
-          userName: "葳蕤",
-          createTime: "2016-05-03"
-        }
-      ],
+      tableData: [],
       detailVisible: false,
       userInfo: {},
       className: "",
@@ -60,33 +62,76 @@ export default {
           id: 0
         }
       ],
-      temperature: ""
+      temperature: "",
+      temperatureId: "",
+      temUserId: "",
+      temperatureList: []
     };
   },
   mounted() {
     const info = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(info);
     if (info.userName) {
       this.userInfo = info;
-      this.getList();
+      this.getStudentList();
+      this.getList(info.userId)
     }
   },
   methods: {
+    // 获取学生列表
+    getStudentList() {
+      api.getStudentList({ userId: this.userInfo.userId }).then(res => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.classList = result.data.list;
+        } else {
+          this.$message.warning("获取数据失败");
+        }
+      });
+    },
+    // 选择学生
+    classChange(value) {
+      this.temUserId = value;
+      this.getList(value);
+    },
     // 获取体温列表
-    getList() {
+    getList(id) {
       const params = {
-        userId: this.userInfo.userId,
-        userName: this.userInfo.userName,
-        className: this.className
+        userId: id
       };
+      api.getTemperatureList(params).then(res => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.tableData = result.data.list;
+          this.temperatureList = result.data.list;
+        } else {
+          this.$message.warning("获取数据失败");
+        }
+      });
     },
     // 编辑体温
     edit(item) {
       this.temperature = item.temperature;
+      this.temperatureId = item.temperatureId;
       this.detailVisible = true;
     },
     // 确定
-    confirm() {}
+    confirm() {
+      const params = {
+        userId: this.userInfo.userId,
+        temperature: this.temperature,
+        temperatureId: this.temperatureId
+      };
+      api.editTemperature(params).then(res => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.$message.success("编辑成功！");
+          this.detailVisible = false;
+          this.getList();
+        } else {
+          this.$message.warning(result.message);
+        }
+      });
+    }
   }
 };
 </script>

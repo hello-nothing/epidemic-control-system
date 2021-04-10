@@ -113,7 +113,6 @@ export default {
   created() {},
   mounted() {
     const info = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(info);
     if (info.userName) {
       this.userInfo = info;
     }
@@ -193,7 +192,7 @@ export default {
   }
   .index-content {
     display: flex;
-    height: calc(100% - 60px);
+    min-height: calc(100% - 60px);
   }
   .el-menu-vertical-demo {
     text-align: left;

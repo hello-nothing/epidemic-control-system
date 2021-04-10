@@ -48,26 +48,6 @@ export default {
         }
       });
     },
-    // 编辑
-    // edit() {
-    //   if (!this.temperature) {
-    //     this.$message.warning("请输入您的体温！");
-    //     return;
-    //   }
-    //   const params = {
-    //     userId: this.userInfo.userId,
-    //     temperature: this.temperature,
-    //   };
-    //   api.editTemperature(params).then((res) => {
-    //     console.log(res);
-    //     const result = res.data;
-    //     if (result.status === 200) {
-    //       this.$message.success("编辑成功！");
-    //     } else {
-    //       this.$message.warning(result.message);
-    //     }
-    //   });
-    // },
   },
 };
 </script>

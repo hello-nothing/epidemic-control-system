@@ -14,8 +14,16 @@ export default {
     chartData: Array
   },
   mounted() {
-    if (this.chartId && this.chartData) {
+    if (this.chartData.length) {
       this.creatChart();
+    }
+  },
+  watch: {
+    chartData: function(newVal) {
+      this.chartData = newVal;
+      if (newVal) {
+        this.creatChart();
+      }
     }
   },
   methods: {
@@ -23,44 +31,31 @@ export default {
       const chart = new Chart({
         container: this.chartId,
         autoFit: true,
-        height: 500
+        height: 300
       });
 
-      chart.data(this.chartData);
-      chart.scale({
-        month: {
-          range: [0, 1]
-        },
-        temperature: {
-          nice: true
-        }
+      chart.source(this.chartData);
+      chart.scale("temperature", {
+        min: 0
       });
-
+      chart.scale("createTime", {
+        range: [0, 1]
+      });
       chart.tooltip({
-        showCrosshairs: true,
-        shared: true
-      });
-
-      chart.axis("temperature", {
-        label: {
-          formatter: val => {
-            return val + " °C";
-          }
+        crosshairs: {
+          type: "line"
         }
       });
-
-      chart
-        .line()
-        .position("month*temperature")
-        .color("city")
-        .shape("smooth");
-
+      chart.line().position("createTime*temperature");
       chart
         .point()
-        .position("month*temperature")
-        .color("city")
-        .shape("circle");
-
+        .position("createTime*temperature")
+        .size(4)
+        .shape("circle")
+        .style({
+          stroke: "#fff",
+          lineWidth: 1
+        });
       chart.render();
     }
   }

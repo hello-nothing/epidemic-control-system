@@ -14,13 +14,16 @@ export default {
     chartData: Array
   },
   mounted() {
-    if (this.chartData) {
+    if (this.chartData.length) {
       this.getData();
     }
   },
   watch: {
     chartData: function(newVal) {
-      this.getData(newVal);
+      this.chartData = newVal;
+      if (newVal) {
+        this.getData();
+      }
     }
   },
   methods: {

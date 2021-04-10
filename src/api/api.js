@@ -211,5 +211,14 @@ export default {
         ...opts
       }
     });
-  }
+  },
+  // 获取学生列表
+  getStudentList: opts => {
+    return apiCollection({
+      url: "/user/studentList/v1",
+      params: {
+        ...opts
+      }
+    });
+  },
 };
