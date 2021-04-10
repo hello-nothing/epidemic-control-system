@@ -14,20 +14,30 @@ export default {
     chartData: Array
   },
   mounted() {
-    if (this.chartId && this.chartData) {
-      this.creatChart();
+    if (this.chartData) {
+      this.getData();
+    }
+  },
+  watch: {
+    chartData: function(newVal) {
+      this.getData(newVal);
     }
   },
   methods: {
+    getData() {
+      if (this.chartId && this.chartData) {
+        this.creatChart();
+      }
+    },
     creatChart() {
       const chart = new Chart({
         container: this.chartId,
         autoFit: true,
-        height: 500
+        height: 300
       });
 
       chart.data(this.chartData);
-      chart.scale("sales", {
+      chart.scale("total", {
         nice: true
       });
 
@@ -36,7 +46,7 @@ export default {
       });
       chart.interaction("active-region");
 
-      chart.interval().position("year*sales");
+      chart.interval().position("regionName*total");
 
       chart.render();
     }
