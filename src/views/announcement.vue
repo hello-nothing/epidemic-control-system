@@ -117,6 +117,7 @@ export default {
         if (result.status === 200) {
           this.$message.success("新增成功！");
           this.addVisible = false;
+          this.getList();
         } else {
           this.$message.wraning(result.message);
         }

@@ -138,7 +138,7 @@ export default {
       const params = {
         currentPage: this.replyPage,
         pageSize: 20,
-        description: item.description,
+        description: item.inquireId,
       };
       api.getReplyList(params).then((res) => {
         console.log(res);
