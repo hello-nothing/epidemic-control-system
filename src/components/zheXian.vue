@@ -7,7 +7,9 @@ import { Chart } from "@antv/g2";
 export default {
   name: "zheXian",
   data() {
-    return {};
+    return {
+      chart: ""
+    };
   },
   props: {
     chartId: String,
@@ -28,26 +30,30 @@ export default {
   },
   methods: {
     creatChart() {
-      const chart = new Chart({
+      if (this.chart) {
+        // 如果存在的话就删除图表再重新生成
+        this.chart.destroy();
+      }
+      this.chart = new Chart({
         container: this.chartId,
         autoFit: true,
         height: 300
       });
 
-      chart.source(this.chartData);
-      chart.scale("temperature", {
+      this.chart.data(this.chartData);
+      this.chart.scale("temperature", {
         min: 0
       });
-      chart.scale("createTime", {
+      this.chart.scale("createTime", {
         range: [0, 1]
       });
-      chart.tooltip({
+      this.chart.tooltip({
         crosshairs: {
           type: "line"
         }
       });
-      chart.line().position("createTime*temperature");
-      chart
+      this.chart.line().position("createTime*temperature");
+      this.chart
         .point()
         .position("createTime*temperature")
         .size(4)
@@ -56,7 +62,7 @@ export default {
           stroke: "#fff",
           lineWidth: 1
         });
-      chart.render();
+      this.chart.render();
     }
   }
 };

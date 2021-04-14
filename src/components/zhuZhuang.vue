@@ -7,7 +7,9 @@ import { Chart } from "@antv/g2";
 export default {
   name: "zhuZhuang",
   data() {
-    return {};
+    return {
+      chart: ""
+    };
   },
   props: {
     chartId: String,
@@ -33,25 +35,29 @@ export default {
       }
     },
     creatChart() {
-      const chart = new Chart({
+      if (this.chart) {
+        // 如果存在的话就删除图表再重新生成
+        this.chart.destroy();
+      }
+      this.chart = new Chart({
         container: this.chartId,
         autoFit: true,
         height: 300
       });
 
-      chart.data(this.chartData);
-      chart.scale("total", {
+      this.chart.data(this.chartData);
+      this.chart.scale("total", {
         nice: true
       });
 
-      chart.tooltip({
+      this.chart.tooltip({
         showMarkers: false
       });
-      chart.interaction("active-region");
+      this.chart.interaction("active-region");
 
-      chart.interval().position("regionName*total");
+      this.chart.interval().position("regionName*total");
 
-      chart.render();
+      this.chart.render();
     }
   }
 };
