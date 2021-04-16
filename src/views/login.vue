@@ -2,10 +2,6 @@
   <div class="index-container" :style="{ backgroundImage: 'url(' + img + ')' }">
     <div class="logo-title-box">
       <div class="title-text">校园疫情防控信息管理系统</div>
-      <div
-        class="title-image"
-        style="background-image: url(assets/mobileTitle.png)"
-      ></div>
     </div>
     <div class="login-module">
       <div class="login-title">请登录</div>
@@ -126,7 +122,7 @@ export default {
           id: 2
         }
       ],
-      glassList: []
+      glassList: [],
     };
   },
 
@@ -221,23 +217,12 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-
   .logo-title-box {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 100px 0 94px;
-  }
-  .logo-image {
-    width: 101px;
-    height: 107px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-  .title-image {
-    display: none;
   }
   .title-text {
     padding-left: 40px;
@@ -410,6 +395,20 @@ export default {
       color: #008fe2;
     }
   }
+  @media screen and (max-width: 750px) {
+    .title-text {
+      padding: 0;
+      font-size: 30px;
+      text-align: center;
+    }
+    .logo-title-box{
+      padding-bottom: 10px;
+    }
+    .login-module {
+      width: calc(100% - 100px);
+      padding: 38px 20px 50px;
+    }
+  }
 }
 .list-box {
   display: flex;
@@ -418,6 +417,12 @@ export default {
   .list-title {
     width: 100px;
     text-align: right;
+  }
+}
+@media screen and (max-width: 750px) {
+  .index-container {
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

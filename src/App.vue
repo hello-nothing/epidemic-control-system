@@ -8,11 +8,7 @@
 </template>
 
 <script>
-import {
-  apiCollection,
-  apiResource,
-  apiFormSubmit,
-} from "./api/index";
+import { apiCollection, apiResource, apiFormSubmit } from "./api/index";
 import router from "./router";
 import sideBar from "@/components/sideBar";
 
@@ -81,5 +77,10 @@ p {
 }
 .page-box {
   margin: 20px 0;
+}
+@media screen and (max-width: 750px) {
+  .el-dialog {
+    width: 100% !important;
+  }
 }
 </style>

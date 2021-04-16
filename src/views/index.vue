@@ -48,7 +48,7 @@ export default {
       dateValue: "",
       chartData: [],
       siwangChartData: [],
-      zhiyuChartData: [],
+      zhiyuChartData: []
     };
   },
 
@@ -158,6 +158,12 @@ export default {
   }
   .chart-list {
     // width: 80%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .index-container {
+    width: calc(100% - 64px);
+    padding: 18px;
   }
 }
 </style>

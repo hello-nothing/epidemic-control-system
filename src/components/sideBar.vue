@@ -15,7 +15,9 @@
         校园疫情防控信息管理系统
       </div>
       <div class="right-box">
-        <div class="user-box" v-if="userInfo.userName">欢迎你，{{ userInfo.userName }}</div>
+        <div class="user-box" v-if="userInfo.userName">
+          欢迎你，{{ userInfo.userName }}
+        </div>
         <div class="no-login" v-else>未登录</div>
         <i class="el-icon-switch-button setting-img" @click="exit"></i>
       </div>
@@ -40,11 +42,37 @@
       </el-menu>
       <slot></slot>
     </div>
-
+    <div class="app-content-box">
+      <div class="head-title">校园疫情防控信息管理系统</div>
+      <div class="app-button" @click="clickAppTab">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div class="app-tab-box" :class="{ apptabActive: appTab }">
+        <div
+          class="tab-list"
+          :class="{ tabActive: selectIndex === index }"
+          @click="selectNav(item, index)"
+          v-for="(item, index) in navList"
+          :key="index"
+        >
+          <span>{{ item.name }}</span>
+        </div>
+      </div>
+      <div class="right-box">
+        <div class="user-box" v-if="userInfo.userName">
+          欢迎你，{{ userInfo.userName }}
+        </div>
+        <div class="no-login" v-else>未登录</div>
+        <i class="el-icon-switch-button setting-img" @click="exit"></i>
+      </div>
+      <slot></slot>
+    </div>
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="60%"
       :before-close="handleClose"
     >
       <span>是否退出登录</span>
@@ -62,16 +90,15 @@ import { apiCollection, apiResource, apiFormSubmit } from "../api/index";
 export default {
   name: "headerComBox",
   computed: {
-    ...mapState({
-      userName: state => state.name
-    })
+    ...mapState({})
   },
   data() {
     return {
+      appTab: false,
       dialogVisible: false,
       isCollapse: false,
       navList: [
-       {
+        {
           name: "疫情数据",
           id: "1",
           url: "/"
@@ -105,9 +132,12 @@ export default {
           name: "用户管理",
           id: "7",
           url: "/reviewList"
-        },
+        }
       ],
-      userInfo: {}
+      userInfo: {
+        userName: ""
+      },
+      selectIndex: 0
     };
   },
   created() {},
@@ -129,7 +159,6 @@ export default {
         item.defaults.headers["x-token"] = "";
       });
       localStorage.removeItem("isLogin");
-      this.getUserName("");
       this.$router.replace({ path: "/login" });
     },
     handleClose() {
@@ -137,7 +166,8 @@ export default {
     },
     // 侧边栏选择
     selectNav(item, index) {
-      console.log(item,this.userInfo)
+      this.selectIndex = index;
+      console.log(item, this.userInfo);
       if (this.userInfo.type === "3" && item.url === "/glassList") {
         this.$message.warning("权限不足！");
         return;
@@ -147,6 +177,16 @@ export default {
         return;
       }
       this.$router.push(item.url);
+      this.appTab = false;
+    },
+    clickAppTab() {
+      this.appTab = !this.appTab;
+    },
+    tabSelect(item, index) {
+      if (index !== 1) {
+        this.selectIndex = index;
+        this.$router.push(item.url);
+      }
     }
   }
 };
@@ -154,6 +194,7 @@ export default {
 <style lang="scss" scoped>
 .head-container {
   height: 100%;
+  width: 100%;
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
@@ -200,6 +241,71 @@ export default {
     .el-menu-item {
       font-size: 16px;
     }
+  }
+  .app-button {
+    width: 22px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 32px;
+    color: #333333;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    cursor: pointer;
+    &:hover {
+      .line {
+        background-color: #ffffff;
+      }
+      color: #ffffff;
+      background-color: #008fe2;
+    }
+    .line {
+      width: 22px;
+      height: 2px;
+      margin-bottom: 4px;
+      border-radius: 1px;
+      background: #333333;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .app-content-box {
+    display: none;
+  }
+  @media screen and (max-width: 750px) {
+    .head-top-box,
+    .index-content {
+      display: none;
+    }
+    .app-content-box {
+      display: block;
+    }
+    .head-title {
+      text-align: center;
+    }
+    .right-box {
+      padding: 24px;
+    }
+  }
+  .app-tab-box {
+    display: none;
+    font-weight: bold;
+    font-size: 18px;
+    .tab-list {
+      position: relative;
+      margin: 0 20px;
+      line-height: 40px;
+      cursor: pointer;
+    }
+    .ch-text {
+      line-height: 40px;
+    }
+  }
+  .apptabActive {
+    display: block;
   }
 }
 </style>

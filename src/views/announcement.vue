@@ -20,7 +20,11 @@
           <el-button size="mini" type="primary" @click="lookDetail(scope.row)"
             >查看详情</el-button
           >
-          <el-button  v-if="userInfo.type != 3" size="mini" type="danger" @click="handleDelete(scope.row)"
+          <el-button
+            v-if="userInfo.type != 3"
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.row)"
             >删除</el-button
           >
           <el-button size="mini" type="" @click="lookMessage(scope.row)"
@@ -29,6 +33,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      class="page-box"
+      background
+      @current-change="handleCurrentChange"
+      layout="prev, pager, next"
+      :total="pageTotal"
+    >
+    </el-pagination>
     <el-dialog title="删除" :visible.sync="deleteVisible" width="50%">
       <div class="delete-text">确认删除吗？</div>
       <el-button @click="deleteVisible = false">取 消</el-button>
@@ -80,7 +92,9 @@ export default {
       detailVisible: false,
       addVisible: false,
       description: "",
-      userInfo: {}
+      userInfo: {},
+      pageTotal: 1,
+
     };
   },
   mounted() {
@@ -91,6 +105,12 @@ export default {
     this.getList();
   },
   methods: {
+    // 页码改变
+    handleCurrentChange(val) {
+      console.log(val);
+      this.currentPage = val;
+      this.getList();
+    },
     // 查看留言
     lookMessage(item) {
       this.$router.push({
@@ -134,6 +154,7 @@ export default {
         const result = res.data;
         if (result.status === 200) {
           this.tableData = result.data.list;
+          this.pageTotal = result.data.total;
         } else {
           this.$message.wraning("获取数据失败！");
         }
