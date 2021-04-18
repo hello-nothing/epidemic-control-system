@@ -5,7 +5,8 @@ import router from "../router";
 axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
 
-let baseurl = process.env.NODE_ENV === "production" ? "" : "http://38670m585s.zicp.vip";
+let baseurl =
+  process.env.NODE_ENV === "production" ? "" : "http://localhost:8081";
 
 export let apiCollection = Vue.axios.create({
   method: "GET",
@@ -23,11 +24,7 @@ export let apiFormSubmit = Vue.axios.create({
     "Content-Type": "application/x-www-form-urlencoded"
   }
 });
-const axiosInstace = [
-  apiCollection,
-  apiResource,
-  apiFormSubmit,
-];
+const axiosInstace = [apiCollection, apiResource, apiFormSubmit];
 axiosInstace.forEach(item => {
   item.defaults.withCredentials = true;
   item.defaults.headers["Requested-with"] = "restful";

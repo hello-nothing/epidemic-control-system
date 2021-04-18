@@ -72,7 +72,7 @@
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"
-      width="60%"
+      width="30%"
       :before-close="handleClose"
     >
       <span>是否退出登录</span>
@@ -193,8 +193,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .head-container {
-  height: 100%;
   width: 100%;
+  height: 100%;
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;

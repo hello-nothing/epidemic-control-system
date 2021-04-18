@@ -116,7 +116,7 @@ export default {
       replyTotal: 1000,
       replyPage: 1,
       messagePage: 1,
-      messageDeleteId: "",
+      messageDeleteId: ""
     };
   },
   mounted() {
@@ -137,10 +137,10 @@ export default {
       // this.replyList
       const params = {
         currentPage: this.replyPage,
-        pageSize: 5,
-        description: item.inquireId,
+        pageSize: 20,
+        description: item.inquireId
       };
-      api.getReplyList(params).then((res) => {
+      api.getReplyList(params).then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
@@ -167,14 +167,14 @@ export default {
       const params = {
         currentPage: this.messagePage,
         pageSize: 5,
-        noticeId: id,
+        noticeId: id
       };
-      api.getMessageList(params).then((res) => {
+      api.getMessageList(params).then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
           this.messageList = result.data.list;
-          this.messageList.forEach((ele) => {
+          this.messageList.forEach(ele => {
             ele.isReply = false;
           });
           this.pageTotal = result.data.total;
@@ -187,7 +187,7 @@ export default {
     reply(item, index) {
       console.log(item);
       item.isReply = true;
-      this.replyId = item.noticeId;
+      this.replyId = item.inquireId;
       this.$forceUpdate();
     },
     // 确定回复
@@ -197,15 +197,15 @@ export default {
         return;
       }
       const params = {
-        noticeId: this.replyId,
+        inquireId: this.replyId,
         description: this.replyDesc,
-        userId: this.userInfo.userId,
+        userId: this.userInfo.userId
       };
-      api.saveReplay(params).then((res) => {
+      api.saveReplay(params).then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
-          this.messageList.forEach((ele) => {
+          this.messageList.forEach(ele => {
             ele.isReply = false;
           });
           this.getMessageList(this.messageId);
@@ -240,18 +240,23 @@ export default {
     },
     // 确认删除
     confirmDelete() {
-      api.deleteMessage({ inquireId: this.messageDeleteId }).then((res) => {
-        console.log(res);
-        const result = res.data;
-        if (result.status === 200) {
-          this.$message.success("删除成功！");
-          this.deleteVisible = false;
-        } else {
-          this.$message.warning(result.message);
-        }
-      });
-    },
-  },
+      api
+        .deleteMessage({
+          inquireId: this.messageDeleteId,
+          userId: this.userInfo.userId
+        })
+        .then(res => {
+          console.log(res);
+          const result = res.data;
+          if (result.status === 200) {
+            this.$message.success("删除成功！");
+            this.deleteVisible = false;
+          } else {
+            this.$message.warning(result.message);
+          }
+        });
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

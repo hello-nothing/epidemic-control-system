@@ -85,8 +85,9 @@
         <div class="list-title">用户类型：</div>
         <el-select v-model="info.type">
           <el-option label="学生" value="3"></el-option>
-          <el-option label="老师 " value="1"></el-option>
-          <el-option label="管理员" value="2"></el-option>
+          <el-option label="老师 " value="2
+          "></el-option>
+          <el-option label="管理员" value="1"></el-option>
         </el-select>
       </div>
       <el-button @click="confirmAdd" type="primary">确定</el-button>
@@ -122,7 +123,7 @@ export default {
           id: 2
         }
       ],
-      glassList: [],
+      glassList: []
     };
   },
 
@@ -217,6 +218,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
   .logo-title-box {
     display: flex;
     align-items: center;
@@ -395,7 +397,7 @@ export default {
       color: #008fe2;
     }
   }
-  @media screen and (max-width: 750px) {
+    @media screen and (max-width: 750px) {
     .title-text {
       padding: 0;
       font-size: 30px;

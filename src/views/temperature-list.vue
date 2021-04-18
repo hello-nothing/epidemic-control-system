@@ -91,7 +91,23 @@ export default {
     // 选择学生
     classChange(value) {
       this.temUserId = value;
-      this.getList(value);
+      this.getStudenList(value);
+    },
+     // 获取体温列表
+    getStudenList(id) {
+      const params = {
+        userId: id,
+        type:0
+      };
+      api.getTemperatureList(params).then(res => {
+        const result = res.data;
+        if (result.status === 200) {
+          this.tableData = result.data.list;
+          this.temperatureList = result.data.list;
+        } else {
+          this.$message.warning("获取数据失败");
+        }
+      });
     },
     // 获取体温列表
     getList(id) {

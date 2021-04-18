@@ -220,5 +220,5 @@ export default {
         ...opts
       }
     });
-  },
+  }
 };

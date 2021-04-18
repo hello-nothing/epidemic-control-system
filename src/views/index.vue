@@ -48,7 +48,7 @@ export default {
       dateValue: "",
       chartData: [],
       siwangChartData: [],
-      zhiyuChartData: []
+      zhiyuChartData: [],
     };
   },
 
