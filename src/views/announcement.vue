@@ -82,7 +82,7 @@ export default {
       deleteVisible: false,
       deleteId: "",
       currentPage: 1,
-      pageSize: 10,
+      pageSize: 5,
       detailInfo: {
         description: "",
         type: "",

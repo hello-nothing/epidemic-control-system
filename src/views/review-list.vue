@@ -180,7 +180,7 @@ export default {
     // 获取用户列表
     getUserList() {
       const params = {
-        pageSize: 20,
+        pageSize: 5,
         currentPage: this.currentPage,
         telephone: this.userInfo.telephone,
         userName: this.userInfo.userName,

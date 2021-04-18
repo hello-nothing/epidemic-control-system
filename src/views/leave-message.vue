@@ -137,7 +137,7 @@ export default {
       // this.replyList
       const params = {
         currentPage: this.replyPage,
-        pageSize: 20,
+        pageSize: 5,
         description: item.inquireId,
       };
       api.getReplyList(params).then((res) => {
@@ -166,7 +166,7 @@ export default {
     getMessageList(id) {
       const params = {
         currentPage: this.messagePage,
-        pageSize: 20,
+        pageSize: 5,
         noticeId: id,
       };
       api.getMessageList(params).then((res) => {

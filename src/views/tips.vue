@@ -109,7 +109,7 @@ export default {
     // 获取防疫小知识
     getQuestionList() {
       const params = {
-        pageSize: 20,
+        pageSize: 5,
         currentPage: this.currentPage,
       };
       api.getQuestionList(params).then((res) => {
