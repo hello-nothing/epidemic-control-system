@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
 
 let baseurl =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:8081";
+  process.env.NODE_ENV === "production" ? "" : "http://38670m585s.zicp.vip";
 
 export let apiCollection = Vue.axios.create({
   method: "GET",

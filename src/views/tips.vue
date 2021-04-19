@@ -1,7 +1,11 @@
 <template>
   <div class="tips-container wrapper">
     <div class="page-title">防疫小知识</div>
-    <el-button v-if="userInfo.type != 3" type="primary" class="add-button" @click="newAdd"
+    <el-button
+      v-if="userInfo.type != 3"
+      type="primary"
+      class="add-button"
+      @click="newAdd"
       >新增</el-button
     >
     <el-table :data="tableData" border style="width: 100%">
@@ -15,7 +19,11 @@
           <!-- <el-button size="mini" type="primary" @click="edit(scope.row)"
             >编辑</el-button
           > -->
-          <el-button v-if="userInfo.type != 3" size="mini" type="danger" @click="handleDelete(scope.row)"
+          <el-button
+            v-if="userInfo.type != 3"
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.row)"
             >删除</el-button
           >
         </template>
@@ -24,6 +32,7 @@
     <el-pagination
       class="page-box"
       background
+      :page-size="5"
       @current-change="listCurrentChange"
       layout="prev, pager, next"
       :total="listTotal"
@@ -64,7 +73,7 @@ export default {
       description: "",
       addVisible: false,
       currentPage: 1,
-      listTotal: 0,
+      listTotal: 0
     };
   },
   mounted() {
@@ -88,9 +97,9 @@ export default {
     // 确认删除
     confirmDelete() {
       const param = {
-        questionId: this.questionId,
+        questionId: this.questionId
       };
-      api.deleteQuestion(param).then((res) => {
+      api.deleteQuestion(param).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.$message.success("删除成功！");
@@ -110,9 +119,9 @@ export default {
     getQuestionList() {
       const params = {
         pageSize: 5,
-        currentPage: this.currentPage,
+        currentPage: this.currentPage
       };
-      api.getQuestionList(params).then((res) => {
+      api.getQuestionList(params).then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
@@ -136,9 +145,9 @@ export default {
       const params = {
         userId: this.userInfo.userId,
         title: this.title,
-        description: this.description,
+        description: this.description
       };
-      api.saveQuestion(params).then((res) => {
+      api.saveQuestion(params).then(res => {
         console.log(res);
         const result = res.data;
         if (result.status === 200) {
@@ -150,8 +159,8 @@ export default {
           this.$message.wraning(result.message);
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

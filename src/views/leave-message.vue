@@ -52,6 +52,7 @@
     <el-pagination
       class="page-box"
       background
+      :page-size="5"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
       :total="pageTotal"
@@ -87,6 +88,7 @@
       <el-pagination
         class="page-box"
         background
+        :page-size="5"
         @current-change="replyCurrentChange"
         layout="prev, pager, next"
         :total="replyTotal"
@@ -113,7 +115,7 @@ export default {
       messageId: "",
       detailVisible: false,
       replyList: [],
-      replyTotal: 1000,
+      replyTotal: 1,
       replyPage: 1,
       messagePage: 1,
       messageDeleteId: ""
@@ -134,10 +136,9 @@ export default {
   methods: {
     // 查看回复列表
     lookReply(item) {
-      // this.replyList
       const params = {
         currentPage: this.replyPage,
-        pageSize: 20,
+        pageSize: 5,
         description: item.inquireId
       };
       api.getReplyList(params).then(res => {
@@ -147,6 +148,7 @@ export default {
           this.replyList = result.data.list;
           this.detailVisible = true;
           this.replyTotal = result.data.total;
+          console.log(this.replyTotal);
         } else {
           this.$message.wraning("获取数据失败！");
         }
@@ -231,6 +233,23 @@ export default {
         this.$message.warning("请输入留言内容！");
         return;
       }
+      const params = {
+        userId: this.userInfo.userId,
+        noticeId: this.messageId,
+        description: this.messageDesc
+      };
+      api.addMessage(params).then(res => {
+        console.log(res);
+        const result = res.data;
+        if (result.status === 200) {
+          this.getMessageList(this.messageId);
+          this.$forceUpdate();
+          this.addVisible = false;
+          this.$message.success("新增成功！");
+        } else {
+          this.$message.wraning(result.message);
+        }
+      });
     },
     // 删除留言
     deleteMessage(item) {

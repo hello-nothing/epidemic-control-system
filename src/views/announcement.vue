@@ -36,6 +36,7 @@
     <el-pagination
       class="page-box"
       background
+      :page-size="5"
       @current-change="handleCurrentChange"
       layout="prev, pager, next"
       :total="pageTotal"
