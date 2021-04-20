@@ -181,9 +181,9 @@ export default {
     // 登录
     login() {
       if (!this.account) {
-        this.message.warning("请输入账号！");
+        this.$message.warning("请输入账号！");
       } else if (!this.password) {
-        this.message.warning("请输入密码！");
+        this.$message.warning("请输入密码！");
       } else {
         const params = {
           userName: this.account,

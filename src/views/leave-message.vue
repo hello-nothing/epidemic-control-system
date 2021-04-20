@@ -148,7 +148,6 @@ export default {
           this.replyList = result.data.list;
           this.detailVisible = true;
           this.replyTotal = result.data.total;
-          console.log(this.replyTotal);
         } else {
           this.$message.wraning("获取数据失败！");
         }
