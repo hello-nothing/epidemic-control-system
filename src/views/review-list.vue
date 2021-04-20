@@ -25,6 +25,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      class="page-box"
+      background
+      :page-size="5"
+      @current-change="listCurrentChange"
+      layout="prev, pager, next"
+      :total="listTotal"
+    >
+    </el-pagination>
     <el-dialog title="审核用户" :visible.sync="checkVisible" width="30%">
       <el-select v-model="checkId" placeholder="请选择" class="select-style">
         <el-option
@@ -122,50 +131,51 @@ export default {
           birthday: "2020-10-10 02:23:23",
           gender: "男",
           type: "学生",
-          className: "计算机",
-        },
+          className: "计算机"
+        }
       ],
       checkVisible: false,
       checkList: [
         {
           status: 1,
-          name: "审核不通过",
+          name: "审核不通过"
         },
         {
           status: 2,
-          name: "审核通过",
-        },
+          name: "审核通过"
+        }
       ],
       checkId: 2,
       userInfo: {},
       sexList: [
         {
           name: "男",
-          id: 1,
+          id: 1
         },
         {
           name: "女",
-          id: 2,
-        },
+          id: 2
+        }
       ],
       typeList: [
         {
           name: "学生",
-          id: 1,
+          id: 1
         },
         {
           name: "教师",
-          id: 2,
+          id: 2
         },
         {
           name: "管理员",
-          id: 3,
-        },
+          id: 3
+        }
       ],
       editInfo: {},
       editVisible: false,
       currentPage: 1,
-      checkUserId:''
+      checkUserId: "",
+      listTotal: 1
     };
   },
   mounted() {
@@ -177,18 +187,23 @@ export default {
     }
   },
   methods: {
+    listCurrentChange(val) {
+      this.currentPage = val;
+      this.getUserList();
+    },
     // 获取用户列表
     getUserList() {
       const params = {
         pageSize: 5,
         currentPage: this.currentPage,
         telephone: this.userInfo.telephone,
-        userName: this.userInfo.userName,
+        userName: this.userInfo.userName
       };
-      api.getUserList(params).then((res) => {
+      api.getUserList(params).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.tableData = result.data.list;
+          this.listTotal = result.data.total;
         } else {
           this.$message.wraning("获取数据失败！");
         }
@@ -196,18 +211,17 @@ export default {
     },
     // 审核
     check(item) {
-      console.log(item)
+      console.log(item);
       this.checkUserId = item.userId;
       this.checkVisible = true;
-
     },
     // 确认审核结果
     confirmCheck() {
       const param = {
         userId: this.checkUserId,
-        status: this.checkId,
+        status: this.checkId
       };
-      api.checkUser(param).then((res) => {
+      api.checkUser(param).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.getUserList();
@@ -226,7 +240,7 @@ export default {
     },
     // 确定编辑
     confirmEdit() {
-      api.editUser(this.editInfo).then(res=> {
+      api.editUser(this.editInfo).then(res => {
         const result = res.data;
         if (result.status === 200) {
           this.getUserList();
@@ -235,9 +249,9 @@ export default {
         } else {
           this.$message.wraning(result.message);
         }
-      })
+      });
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
